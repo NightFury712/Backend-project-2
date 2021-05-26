@@ -1,4 +1,5 @@
 const Member = require('../models/memberModel');
+const Timeline = require('../models/timelineModel');
 
 const getMembers = async (req, res) => {
   try {
@@ -6,7 +7,7 @@ const getMembers = async (req, res) => {
 
     prjKey = prjKey.toLowerCase();
     const members = await Member.findAll(prjKey);
-    res.end(JSON.stringify(members));
+    res.json(members);
   } catch (err) {
     console.log(err);
   }
@@ -15,6 +16,14 @@ const getMembers = async (req, res) => {
 const createMember = (req, res) => {
   try {
     const member = req.body;
+    const timeline = {
+      name: 'Hoàng Hải Đăng',
+      activity: 'add a new',
+      project_Key: member.prjKey.toLowerCase(),
+      type: 'member'
+    }
+
+    Timeline.create(timeline);
 
     member.prjKey = member.prjKey.toLowerCase();
     Member.created(member);
@@ -39,9 +48,19 @@ const updateMember = (req, res) => {
 const deleteMember = (req, res) => {
   try {
     const member = req.body;
+    const timeline = {
+      name: 'Hoàng Hải Đăng',
+      activity: 'delete a',
+      project_Key: member.prjKey.toLowerCase(),
+      type: 'member'
+    }
 
-    member.prjKey = member.prjKey.replace(/\s/g, '_').toLowerCase();
+    Timeline.create(timeline);
+
+    member.prjKey = member.prjKey.toLowerCase();
     Member.deleted(member);
+    
+    res.json({message: 'Delete member success!'});
   } catch (err) {
     console.log(err);
   }

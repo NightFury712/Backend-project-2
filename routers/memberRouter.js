@@ -11,7 +11,7 @@ router.post('/create', (req, res) => {
   Members.createMember(req, res);
 })
 
-router.patch('/update', (req, res) => {
+router.put('/update', (req, res) => {
   Members.updateMember(req, res);
 })
 

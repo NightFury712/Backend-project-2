@@ -12,9 +12,9 @@ router.post('/create', (req, res) => {
   res.json('success')
 })
 
-// router.patch('/update', (req, res) => {
-//   Projects.up(req, res);
-// })
+router.put('/update', (req, res) => {
+  Projects.updateProject(req, res);
+})
 
 router.delete('/delete', (req, res) => {
   Projects.deleteProject(req, res);

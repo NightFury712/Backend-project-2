@@ -1,4 +1,5 @@
 const Issue = require('../models/issueModel');
+const Timeline = require('../models/timelineModel');
 
 
 //Get all Issues
@@ -6,8 +7,6 @@ const getIssues = async (req, res) => {
   try {
     prjKey = req.params.prjKey;
     const issues = await Issue.findAll(prjKey);
-    // res.writeHead(200, {'Content-Type': 'application/json'})
-    // console.log(issues);
     res.json(issues);
   } catch (err) {
     console.log(err);
@@ -17,8 +16,15 @@ const getIssues = async (req, res) => {
 const createIssue = (req, res) => {
   try {
     const issue = req.body;
+    const timeline = {
+      name: 'Hoàng Hải Đăng',
+      activity: 'add a new',
+      project_Key: issue.prjKey.toLowerCase(),
+      type: 'issue'
+    }
 
-    issue.prjKey = issue.prjKey.replace(/\s/g, '_').toLowerCase();
+    Timeline.create(timeline);
+    issue.prjKey = issue.prjKey.toLowerCase();
     Issue.created(issue);
     // console.log(issue);
   } catch (err) {
@@ -29,7 +35,15 @@ const createIssue = (req, res) => {
 const updateIssue = (req, res) => {
   try {
     const issue = req.body;
-    issue.prjKey = issue.prjKey.replace(/\s/g, '_').toLowerCase();
+    const timeline = {
+      name: 'Hoàng Hải Đăng',
+      activity: 'update a',
+      project_Key: issue.prjKey.toLowerCase(),
+      type: 'issue'
+    }
+
+    Timeline.create(timeline);
+    issue.prjKey = issue.prjKey.toLowerCase();
     Issue.updated(issue);
     // console.log(issue);
   } catch (err) {
@@ -40,7 +54,15 @@ const updateIssue = (req, res) => {
 const deleteIssue = (req, res) => {
   try {
     const issue = req.body;
-    issue.prjKey = issue.prjKey.replace(/\s/g, '_').toLowerCase();
+    const timeline = {
+      name: 'Hoàng Hải Đăng',
+      activity: 'delete the',
+      project_Key: issue.prjKey.toLowerCase(),
+      type: 'issue'
+    }
+
+    Timeline.create(timeline);
+    issue.prjKey = issue.prjKey.toLowerCase();
     Issue.deleted(issue);
   } catch (err) {
     console.log(err);

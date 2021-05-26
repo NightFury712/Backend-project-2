@@ -10,7 +10,8 @@ router.post('/create', (req, res) => {
   Issues.createIssue(req, res);
 })
 
-router.patch('/update', (req, res) => {
+router.put('/update', (req, res) => {
+  console.log(req.body);
   Issues.updateIssue(req, res);
 })
 

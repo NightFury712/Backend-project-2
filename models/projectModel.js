@@ -19,7 +19,7 @@ const create = async (prjKey, prjName) => {
 };
 
 const saveProjectName = (prjKey, prjName) => {
-  const sql = `insert into project_name (project_Name, project_Key) value ('${prjName}', '${prjKey}')`;
+  const sql = `insert into project_name (project_Name, project_Key) values ('${prjName}', '${prjKey}')`;
   conn.connection('project_test').query(sql, (err) => {
     if (!err) {
       console.log('Insert new project success!');
@@ -54,6 +54,7 @@ const createIssueTable = (prjKey) => {
     category varchar(100),
     dueDate varchar(100),
     created varchar(100),
+    updated varchar(100),
     assignee varchar(50),
     milestone varchar(50),
     version varchar(50)
@@ -85,12 +86,18 @@ const createMemberTable = (prjKey) => {
 };
 
 
-const updated = () => {
-
+const updated = (prjKey, prjName) => {
+  const sql = `update project_name set project_Name = '${prjName}' where project_Key = '${prjKey}'`;
+  conn.connection('project_test').query(sql, (err) => {
+    if (!err) {
+      console.log('Update project success!');
+    } else {
+      console.log('Update error:' + err);
+    }
+  });
 }
 
 const deleted = (prjKey) => {
-  console.log(prjKey);
   const sql = `delete from project_name where project_Key = '${prjKey}'`;
   conn.connection('project_test').query(sql, (err) => {
     if (!err) {
@@ -116,5 +123,6 @@ const dropProjectDB = (prjKey) => {
 module.exports = {
   findAll,
   create,
-  deleted
+  deleted,
+  updated
 }

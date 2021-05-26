@@ -13,13 +13,13 @@ let findAll = (prjKey) => {
 
 let created = (issue) => {
   const sql = `insert into issues (type,subject,description,status,priority,category,
-    dueDate,created,assignee,milestone,version) values 
+    dueDate,created, updated,assignee,milestone,version) values 
     ('${issue.type}', '${issue.subject}', '${issue.description}', '${issue.status}',
     '${issue.priority}', '${issue.category}', '${issue.dueDate}', '${issue.created}',
-    '${issue.assignee}', '${issue.milestone}', '${issue.version}')`;
+    '${issue.updated}', '${issue.assignee}', '${issue.milestone}', '${issue.version}')`;
   conn.connection(issue.prjKey).query(sql, (err) => {
     if (!err) {
-      console.log('Insert issues success!');
+      console.log(`Insert issues to table ${issue.prjKey} success!`);
     } else {
       console.log('Insert error:' + err);
     }
@@ -46,7 +46,7 @@ let updated = (issue) => {
     priority = '${issue.priority}',
     category = '${issue.category}',
     dueDate = '${issue.dueDate}',
-    created = '${issue.created}',
+    updated = '${issue.updated}',
     assignee = '${issue.assignee}',
     milestone = '${issue.milestone}',
     version = '${issue.version}' where id = '${issue.id}'`;
